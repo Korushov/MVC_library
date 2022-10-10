@@ -1,20 +1,17 @@
 package ru.korushov.library.models;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class Person {
 
     private int id;
 
-    @NotEmpty(message = "Name should not be empty")
-    @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
+    @NotEmpty(message = "Имя не может быть пустым")
+    @Size(min = 2, max = 30, message = "Длина имени должна быть от 2 до 40 символов")
     private String fullName;
 
-    @Min(value = 1900, message = "Year of birth should be greater than 1900")
-    @Max(value = 2022, message = "Year of birth should be real")
+    @Min(value = 1900, message = "Год рождения должен быть больше 1900")
+    @PositiveOrZero(message = "Год рождения должен быть валидным")
     private int birthYear;
 
     public int getId() {
@@ -42,7 +39,7 @@ public class Person {
     }
 
     public Person(int id, String fullName, int birthYear) {
-        this.id = id;
+        this.id= id;
         this.fullName = fullName;
         this.birthYear = birthYear;
     }

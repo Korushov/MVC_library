@@ -9,18 +9,18 @@ public class Book {
 
     private int id;
 
-    @NotEmpty(message = "Book should have name")
-    @Size(min = 2, message = "Name of book too small")
-    @Size(max = 40, message = "Name of book too large")
+    @NotEmpty(message = "Название книги не может быть пустым")
+    @Size(min = 2, message = "Название книги слишком короткое")
+    @Size(max = 40, message = "Название книги слишком длинное")
     private String name;
 
-    @NotEmpty(message = "Book should have author")
-    @Size(min = 2, message = "Name of author too small")
-    @Size(min = 40, message = "Name of author too small")
+    @NotEmpty(message = "У книги должен быть автор")
+    @Size(min = 2, message = "Имя автора слишком короткое")
+    @Size(max = 40, message = "Имя автора слишком длинное")
     private String author;
 
-    @Min(value = 0, message = "Year should be greater than 0")
-    @Max(value = 2022, message = "Year of birth should be real")
+    @Min(value = 0, message = "Год выхода должен быть валидным")
+    @Max(value = 2022, message = "Год выхода должен быть валидным")
     private int year;
 
     public Book(int id, String name, String author, int year) {

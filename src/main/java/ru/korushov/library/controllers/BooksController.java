@@ -7,7 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.korushov.library.dao.BookDAO;
 import ru.korushov.library.models.Book;
-import ru.korushov.library.models.Person;
 
 import javax.validation.Valid;
 
@@ -29,7 +28,7 @@ public class BooksController {
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("person", bookDAO.show(id));
+        model.addAttribute("book", bookDAO.show(id));
         return "books/show";
     }
 
@@ -43,10 +42,10 @@ public class BooksController {
                          BindingResult bindingResult) {
 
         if (bindingResult.hasErrors())
-            return "book/new";
+            return "books/new";
 
         bookDAO.save(book);
-        return "redirect:/book";
+        return "redirect:/books";
     }
 
     @GetMapping("/{id}/edit")
@@ -56,7 +55,7 @@ public class BooksController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@ModelAttribute("person") @Valid Book book, BindingResult bindingResult,
+    public String update(@ModelAttribute("book") @Valid Book book, BindingResult bindingResult,
                          @PathVariable("id") int id) {
 
         if (bindingResult.hasErrors())
