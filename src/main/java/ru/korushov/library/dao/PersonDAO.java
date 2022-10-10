@@ -24,7 +24,7 @@ public class PersonDAO {
 
 
     public Person show(int id) {
-        return jdbcTemplate.query("SELECT * FROM Person WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Person.class))
+        return jdbcTemplate.query("SELECT * FROM Person WHERE person_id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Person.class))
                 .stream().findAny().orElse(null);
     }
 
@@ -33,11 +33,11 @@ public class PersonDAO {
     }
 
     public void update(int id, Person updatedPerson) {
-        jdbcTemplate.update("UPDATE Person SET fullName=?, birthYear=? WHERE id=?", updatedPerson.getFullName(),
+        jdbcTemplate.update("UPDATE Person SET fullName=?, birthYear=? WHERE person_id=?", updatedPerson.getFullName(),
                 updatedPerson.getBirthYear(), id);
     }
 
     public void delete(int id) {
-        jdbcTemplate.update("DELETE FROM Person WHERE id=?", id);
+        jdbcTemplate.update("DELETE FROM Person WHERE person_id=?", id);
     }
 }
