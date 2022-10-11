@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import ru.korushov.library.models.Book;
 import ru.korushov.library.models.Person;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class PersonDAO {
@@ -39,5 +41,17 @@ public class PersonDAO {
 
     public void delete(int id) {
         jdbcTemplate.update("DELETE FROM Person WHERE id=?", id);
+    }
+
+    // Для валидации уникальности ФИО
+    public Optional<Person> getPersonByFullName(String fullName) {
+        return jdbcTemplate.query("SELECT * FROM Person WHERE fullname=?", new Object[]{fullName},
+                new BeanPropertyRowMapper<>(Person.class)).stream().findAny();
+    }
+
+    // Здесь Join не нужен. И так уже получили человека с помощью отдельного метода
+    public List<Book> getBooksByPersonId(int id) {
+        return jdbcTemplate.query("SELECT * FROM Book WHERE person_id = ?", new Object[]{id},
+                new BeanPropertyRowMapper<>(Book.class));
     }
 }

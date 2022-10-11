@@ -1,6 +1,7 @@
 package ru.korushov.library.models;
 
 import javax.validation.constraints.*;
+import java.util.List;
 
 public class Person {
 
@@ -13,6 +14,12 @@ public class Person {
     @Min(value = 1900, message = "Год рождения должен быть больше 1900")
     @PositiveOrZero(message = "Год рождения должен быть валидным")
     private int birthYear;
+
+    private List<Book> bookList;
+
+    public void setBookList(List<Book> bookList) {
+        this.bookList = bookList;
+    }
 
     public int getId() {
         return id;
